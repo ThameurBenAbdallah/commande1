@@ -2,9 +2,7 @@ package com.commercial.commande.models.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 
@@ -12,17 +10,17 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Command {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "order")
-    private Set<OrderLine> orderLines;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -35,6 +33,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "estimate_id")
     private Estimate estimate;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "command" )
+    private Set<OrderLine> orderLines;
 
 
 }
