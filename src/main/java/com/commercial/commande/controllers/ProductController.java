@@ -3,6 +3,7 @@ package com.commercial.commande.controllers;
 
 
 
+import com.commercial.commande.DTOS.ProductDTO;
 import com.commercial.commande.models.entities.Category;
 import com.commercial.commande.services.ProductService;
 import com.commercial.commande.models.entities.Product;
@@ -45,7 +46,7 @@ public class ProductController{
         productService.delete(id);
     }
 
-    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE )
+    @PostMapping("")
     private ResponseEntity<?> saveProduct(@RequestBody ProductDTO productDTO) {
     try {
         Product product = objectMapper.convertValue(productDTO, Product.class);
@@ -60,13 +61,14 @@ public class ProductController{
 
 
     @PutMapping("/")
-    private Product update(@RequestBody  ProductDTO a)
+    private Product update(@RequestBody ProductDTO a)
     {
 
+        Category c = objectMapper.convertValue(a.category, Category.class);
         Product  p =new Product();
         p.setId(0L);
         p.setName(a.name);
-        p.setCategory(a.categoryDTO);
+        p.setCategory(c);
         p.setTax(a.tax);
         p.setPrice(a.price);
         p.setUnitsInStock(a.unitsInStock);
@@ -82,23 +84,4 @@ public class ProductController{
 
 }
 
-
-@Data
-
-class ProductDTO {
-
-    public Long id;
-
-    public String name;
-
-    public String description;
-    public float tax;
-
-    public BigDecimal price;
-
-    public int unitsInStock;
-
-    public Category categoryDTO;
-
-}
 

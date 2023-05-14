@@ -1,10 +1,12 @@
 package com.commercial.commande.controllers;
 
 
+import com.commercial.commande.DTOS.CategoryDTO;
 import com.commercial.commande.services.CategoryService;
 import com.commercial.commande.models.entities.Category;
 
 import com.commercial.commande.models.entities.Product;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +15,12 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
-public class CategoryController {
+public class CategoryController  {
 
     @Autowired
     CategoryService cs;
+    @Autowired
+    private ObjectMapper objectMapper;
 
 
 
@@ -43,7 +47,7 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/category")
-    private Category saveCategory(@RequestBody categoryDTO a)
+    private Category saveCategory(@RequestBody CategoryDTO a)
     {
         Category c=new Category();
         c.setId(0L);
@@ -53,17 +57,13 @@ public class CategoryController {
     }
 
     @PutMapping("/category")
-    private Category update(@RequestBody  Category a)
+    private Category update(@RequestBody  CategoryDTO a)
     {
-        cs.saveOrUpdate(a);
-        return a;
+        Category c = objectMapper.convertValue(a, Category.class);
+        cs.saveOrUpdate(c);
+        return c;
     }
 
 
 
-}
-class categoryDTO {
-
-    public String name;
-    public Long id;
 }

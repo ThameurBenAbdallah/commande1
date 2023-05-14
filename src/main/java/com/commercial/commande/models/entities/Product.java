@@ -39,9 +39,7 @@ public class Product {
     private int unitsInStock;
 
 
-    @ManyToOne
-    @JsonIgnore
-
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 

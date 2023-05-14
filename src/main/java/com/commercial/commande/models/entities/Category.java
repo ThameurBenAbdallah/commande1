@@ -1,6 +1,7 @@
 package com.commercial.commande.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -22,8 +23,7 @@ public class Category {
     @Column
     private String name;
 
-    @JsonIgnoreProperties("category")
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category",fetch = FetchType.EAGER)
     private Set<Product> products;
 
