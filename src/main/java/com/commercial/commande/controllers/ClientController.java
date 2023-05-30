@@ -1,7 +1,9 @@
 package com.commercial.commande.controllers;
 
+import com.commercial.commande.DTOS.ClientDTO;
 import com.commercial.commande.services.ClientService;
 import com.commercial.commande.models.entities.Client;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,10 @@ public class ClientController {
 
     @Autowired
     ClientService cs;
+    @Autowired
+    ObjectMapper objectMapper;
     @GetMapping("")
-    private List<Client> getAllClients(){
+    private List<ClientDTO> getAllClients(){
         return cs.getAllClients();
     }
 
@@ -32,10 +36,12 @@ public class ClientController {
     }
 
     @PostMapping("")
-    private Client saveClient(@RequestBody Client a)
+    private Client saveClient(@RequestBody ClientDTO a)
     {
-        cs.saveOrUpdate(a);
-        return a;
+        System.out.println(a);
+        Client c = objectMapper.convertValue(a,Client.class);
+        cs.saveOrUpdate(c);
+        return c;
     }
 
     @PutMapping("/")

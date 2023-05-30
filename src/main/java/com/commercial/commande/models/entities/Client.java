@@ -1,5 +1,6 @@
 package com.commercial.commande.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,7 +31,9 @@ public class Client {
     @Column(name = "client_phone")
     private String phone;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client" )
+    @JsonIgnore
     private Set<Command> commands;
 
 

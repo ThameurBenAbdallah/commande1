@@ -1,5 +1,6 @@
 package com.commercial.commande.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,11 +28,10 @@ public class EstimateLine {
     private BigDecimal estimateLineQuantity;
 
 
-    @OneToOne(optional=false)
+    @ManyToOne(optional=false)
     @JoinColumn(name = "product_id", referencedColumnName="id")
     private Product product;
 
-    @JsonManagedReference
     @ManyToOne(optional=false)
     @JoinColumn(name="estimate_id", referencedColumnName="id")
     private Estimate estimate;

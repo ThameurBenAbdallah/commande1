@@ -13,7 +13,7 @@ import java.util.List;
 public class AccountService {
 
     @Autowired
-    AccountRepository cr;
+     AccountRepository cr;
     public List<Account> getAllAccounts()
     {
         List<Account> allAccounts = new ArrayList<Account>();

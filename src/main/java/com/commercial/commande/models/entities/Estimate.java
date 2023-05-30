@@ -1,6 +1,7 @@
 package com.commercial.commande.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +21,7 @@ public class Estimate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "estimate")
     private Set<EstimateLine> estimateLines;
 
@@ -31,6 +32,7 @@ public class Estimate {
     @Column(name = "estimate_date")
     @CreationTimestamp
     private Date estimateDate;
+
 
 
 
